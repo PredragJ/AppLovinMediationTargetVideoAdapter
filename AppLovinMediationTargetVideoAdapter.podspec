@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.vendored_frameworks = "#{s.name}-#{s.version}/#{s.name}.xcframework"
 
-  s.dependency 'BridSDK'
+  s.dependency 'BridSDK', :http => 'https://brid.s3.amazonaws.com/ios/v1.3.4/BridSDK.xcframework.zip'
   s.dependency 'AppLovinSDK'
 
   s.pod_target_xcconfig = {
