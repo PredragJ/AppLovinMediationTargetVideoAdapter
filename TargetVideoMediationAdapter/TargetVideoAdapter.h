@@ -9,4 +9,5 @@
 
 @interface TargetVideoAdapter : ALMediationAdapter<MAInterstitialAdapter, MARewardedAdapter>
 
+
 @end

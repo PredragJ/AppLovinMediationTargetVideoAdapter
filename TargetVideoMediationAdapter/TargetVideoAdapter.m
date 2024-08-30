@@ -21,12 +21,18 @@
 
 @end
 
+@interface TargetVideoMediationAdapterDelegate
+@property (nonatomic,   weak) TargetVideoAdapter *parentAdapter;
+@property (nonatomic, strong) id<MAAdViewAdapterDelegate> delegate;
+- (instancetype)initWithParentAdapter:(TargetVideoAdapter *)parentAdapter andNotify:(id<MAAdViewAdapterDelegate>)delegate;
+@end
+
 @implementation TargetVideoAdapter
 @dynamic router;
 
 - (void)initializeWithParameters:(id<MAAdapterInitializationParameters>)parameters completionHandler:(void (^)(MAAdapterInitializationStatus, NSString * _Nullable))completionHandler
 {
-    [self log: @"Peca Usao"];
+    NSLog(@"Peca Usao u Init");
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self log: @"Initializing SDK..."];
@@ -55,7 +61,7 @@
 - (void)loadBannerAdForParameters:(id<MAAdapterResponseParameters>)parameters adFormat:(MAAdFormat *)adFormat andNotify:(id<MABannerAdapterDelegate>)delegate
 {
     self.routerPlacementIdentifer = parameters.thirdPartyAdPlacementIdentifier;
-    [self log: @"Peca Usao 2"];
+    NSLog(@"Peca Usao u routerPlacementIdentifer");
     [self log: @"Loading banner ad for tag: %@", self.routerPlacementIdentifer];
     
     UIView *bannerView = [[UIView alloc] init]; // Placeholder za vaš banner view
@@ -76,7 +82,7 @@
 
 - (void)removeAdapter:(id)adapter forPlacementIdentifier:(NSString *)placementIdentifier
 {
-    [self log: @"Peca Usao 3"];
+    NSLog(@"Peca Usao u removeAdapter");
 }
 
 @end
