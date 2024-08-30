@@ -65,7 +65,7 @@
     [self log: @"Loading banner ad for tag: %@", self.routerPlacementIdentifer];
     
     UIView *bannerView = [[UIView alloc] init]; // Placeholder za vaš banner view
-//    _player = [[BVPlayer alloc] initAdUnit:35590 forView:bannerView];
+    _player = [[BVPlayer alloc] initAdUnit:35590 forView:bannerView];
 
     // Učitajte baner koristeći odgovarajući SDK i metode
     bannerView.backgroundColor = [UIColor whiteColor];
