@@ -20,7 +20,7 @@
     
     NSString *adUnitID = parameters.thirdPartyAdPlacementIdentifier;
     UIView *bannerView = [[UIView alloc] init];
-    self.player = [[BVPlayer alloc] initAdUnit:[adUnitID intValue] forView:bannerView];
+    self.player = [[BVPlayer alloc] initAdUnit:35590 forView:bannerView];
     
     if (self.player) {
         [delegate didLoadAdForAdViewAdapter:self];

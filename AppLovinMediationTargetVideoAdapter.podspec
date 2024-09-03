@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'AppLovinMediationTargetVideoAdapter'
-  s.version      = '1.0.2'
+  s.version      = '1.0.3'
   s.summary      = 'AppLovin Mediation Adapter for TargetVideo'
   s.description  = <<-DESC
                    This is the AppLovin Mediation Adapter for TargetVideo.
@@ -10,12 +10,9 @@ Pod::Spec.new do |s|
   s.author       = { 'Predrag Jevtic' => 'predrag.jevtic@target-video.com' }
   s.platform     = :ios, '14.0'
 
-  s.source       = { :git => 'https://github.com/PredragJ/AppLovinMediationTargetVideoAdapter.git', :tag => 'v1.0.0' }
+  s.source       = { :git => 'https://github.com/PredragJ/AppLovinMediationTargetVideoAdapter.git', :tag => 'v1.0.3' }
 
-  # Definišite BridSDK kao dependency
   s.dependency 'BridSDK', '~> 1.4.0'
-
-  # AppLovinSDK kao zavisnost
   s.dependency 'AppLovinSDK', '>= 12.4.1'
 
   s.pod_target_xcconfig = {
