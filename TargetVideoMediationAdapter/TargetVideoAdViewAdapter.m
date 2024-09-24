@@ -15,9 +15,9 @@
 
 @implementation TargetVideoAdViewAdapter
 
-- (void)loadAdWithParameters:(id<MAAdapterResponseParameters>)parameters
-                  andNotify:(id<MAAdViewAdapterDelegate>)delegate {
-    
+- (void)loadAdViewAdForParameters:(id<MAAdapterResponseParameters>)parameters adFormat:(MAAdFormat *)adFormat andNotify:(id<MAAdViewAdapterDelegate>)delegate
+{
+    NSLog(@"Peca Usla cupi");
     NSString *adUnitID = parameters.thirdPartyAdPlacementIdentifier;
     UIView *bannerView = [[UIView alloc] init];
     self.player = [[BVPlayer alloc] initAdUnit:35590 forView:bannerView];
@@ -31,6 +31,22 @@
         [delegate didFailToLoadAdForAdViewAdapter:self withError:error];
     }
 }
+//- (void)loadAdWithParameters:(id<MAAdapterResponseParameters>)parameters
+//                  andNotify:(id<MAAdViewAdapterDelegate>)delegate {
+//    
+//    NSString *adUnitID = parameters.thirdPartyAdPlacementIdentifier;
+//    UIView *bannerView = [[UIView alloc] init];
+//    self.player = [[BVPlayer alloc] initAdUnit:35590 forView:bannerView];
+//    
+//    if (self.player) {
+//        [delegate didLoadAdForAdViewAdapter:self];
+//    } else {
+//        NSError *error = [NSError errorWithDomain:@"com.targetvideo.adapter"
+//                                             code:1001
+//                                         userInfo:@{NSLocalizedDescriptionKey: @"Ad failed to load"}];
+//        [delegate didFailToLoadAdForAdViewAdapter:self withError:error];
+//    }
+//}
 
 - (void)didDisplayAd {
     NSLog(@"Peca prikazan AD");
