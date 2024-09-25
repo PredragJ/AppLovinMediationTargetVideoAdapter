@@ -9,4 +9,6 @@
 
 @interface TargetVideoAdViewAdapter : NSObject <MAAdViewAdapter, MAAdViewAdapterDelegate>
 
+@property (nonatomic, strong) BVPlayer *player;
+
 @end

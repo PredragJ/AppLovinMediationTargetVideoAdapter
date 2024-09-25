@@ -10,10 +10,29 @@
 #import <DataseatSDK/DSErrorCode.h>
 #import "Foundation/Foundation.h"
 #import <BridSDK/BridSDK.h"
+#import "UIKit/UIKit.h"
 
 #define ADAPTER_VERSION @"1.0.0.2"
 
 @implementation TargetVideoAdViewAdapter
+
+#pragma mark - MAAdapter Methods
+
+- (void)initializeWithParameters:(id<MAAdapterInitializationParameters>)parameters completionHandler:(void (^)(MAAdapterInitializationStatus, NSString * _Nullable))completionHandler
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self log: @"Initializing Dataseat SDK..."];
+        [[Dataseat shared] initializeSDK: self.router];
+    });
+    
+    completionHandler(MAAdapterInitializationStatusDoesNotApply, nil);
+}
+
+- (NSString *)adapterVersion
+{
+    return ADAPTER_VERSION;
+}
 
 - (void)loadAdViewAdForParameters:(id<MAAdapterResponseParameters>)parameters adFormat:(MAAdFormat *)adFormat andNotify:(id<MAAdViewAdapterDelegate>)delegate
 {
