@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'AppLovinMediationTargetVideoAdapter'
-  s.version      = '1.0.8'
+  s.version      = '1.1.0'
   s.summary      = 'AppLovin Mediation Adapter for TargetVideo'
   s.description  = <<-DESC
                    This is the AppLovin Mediation Adapter for TargetVideo.
