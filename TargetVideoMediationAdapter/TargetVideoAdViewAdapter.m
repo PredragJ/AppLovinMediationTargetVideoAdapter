@@ -6,7 +6,6 @@
 #import "UIKit/UIKit.h"
 
 #define ADAPTER_VERSION @"1.0.0.2"
-#define SDK_VERSION @"1.4.0" // Primer verzije SDK-a
 
 @implementation TargetVideoAdViewAdapter
 
@@ -16,10 +15,10 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSLog(@"Peca onceToken adapter");
+        [[Dataseat shared] initializeSDK: self.router];
     });
     
-    completionHandler(MAAdapterInitializationStatusInitializedSuccess, nil);
+    completionHandler(MAAdapterInitializationStatusDoesNotApply, nil);
 }
 
 - (NSString *)adapterVersion
@@ -27,60 +26,58 @@
     return ADAPTER_VERSION;
 }
 
-- (NSString *)SDKVersion
-{
-    return SDK_VERSION;
-}
-
-- (void)destroy
-{
-    self.player = nil;
-}
-
-#pragma mark - MAAdViewAdapter Methods (Banner Ads)
+#pragma mark - MAAdViewAdapter Methods
 
 - (void)loadAdViewAdForParameters:(id<MAAdapterResponseParameters>)parameters adFormat:(MAAdFormat *)adFormat andNotify:(id<MAAdViewAdapterDelegate>)delegate
 {
+    NSLog(@"Peca Usla cupi");
     NSString *adUnitID = parameters.thirdPartyAdPlacementIdentifier;
-    NSLog(@"Peca Usla cupi sa adUnitID: %@", adUnitID);
-    
     UIView *bannerView = [[UIView alloc] init];
     self.player = [[BVPlayer alloc] initAdUnit:35590 forView:bannerView];
     
     if (self.player) {
-        [delegate didLoadAdForAdViewAdapter:self]; // Oglas uspešno učitan
+        [delegate didLoadAdForAdViewAdapter:self];
     } else {
         NSError *error = [NSError errorWithDomain:@"com.targetvideo.adapter"
                                              code:1001
                                          userInfo:@{NSLocalizedDescriptionKey: @"Ad failed to load"}];
-        [delegate didFailToLoadAdForAdViewAdapter:self withError:error]; // Prijavi grešku
+        [delegate didFailToLoadAdForAdViewAdapter:self withError:error];
     }
 }
 
-#pragma mark - Optional Ad Lifecycle Methods
+#pragma mark - MANativeAdAdapter Methods
 
-- (void)didDisplayAdViewAd {
-    NSLog(@"Peca prikazan AD View");
+- (void)loadNativeAdForParameters:(id<MAAdapterResponseParameters>)parameters andNotify:(id<MANativeAdAdapterDelegate>)delegate
+{
+    NSString *adUnitID = parameters.thirdPartyAdPlacementIdentifier;
+    NSLog(@"Peca Ucitava Native Ad za adUnitID: %@", adUnitID);
+    
+    MANativeAd *nativeAd = [[MANativeAd alloc] init];
+    nativeAd.title = @"Native Ad Title";  
+    nativeAd.body = @"Native Ad Body";
+    
+    if (nativeAd) {
+        [delegate didLoadAdForNativeAd:nativeAd];
+    } else {
+        NSError *error = [NSError errorWithDomain:@"com.targetvideo.adapter"
+                                             code:1002
+                                         userInfo:@{NSLocalizedDescriptionKey: @"Native Ad failed to load"}];
+        [delegate didFailToLoadNativeAdWithError:error];
+    }
 }
 
-- (void)didClickAdViewAd {
-    NSLog(@"Peca kliknut AD View");
+#pragma mark - Additional Native Ad Lifecycle Methods
+
+- (void)didDisplayNativeAdWithExtraInfo:(NSDictionary *)extraInfo {
+    NSLog(@"Peca prikazan Native Ad");
 }
 
-- (void)didHideAdViewAd {
-    NSLog(@"Peca sakriven AD View");
+- (void)didClickNativeAd {
+    NSLog(@"Peca kliknut Native Ad");
 }
 
-- (void)didFailToDisplayAdViewAdWithError:(NSError *)error {
-    NSLog(@"Peca error AD View: %@", error);
-}
-
-- (void)didCollapseAdViewAd {
-    NSLog(@"Peca banner collapsed");
-}
-
-- (void)didExpandAdViewAd {
-    NSLog(@"Peca banner expanded");
+- (void)destroy {
+    self.player = nil;
 }
 
 @end
